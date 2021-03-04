@@ -1,23 +1,48 @@
 from picamera import PiCamera
 from time import sleep
 from deepface import DeepFace
-camera = PiCamera()
-camera.rotation = 180 #change depending on camera orientation
 
-camera.start_preview()
-for i in range (3): #change to while loop that takes pictures until receives signal from google assistant
-    sleep(3)
-    camera.capture('/home/pi/Desktop/Face Detection/Pictures/image%s.jpg' % i)
-    
-    #camera.start_recording('/home/pi/Desktop/video.h264')
-    #sleep(5) #record 5 seconds of video
-    #camera.stop_recording()
-camera.stop_preview()
+def takePicture(camera,filepath):
+    objs = 0
+    camera.start_preview()
+    while objs == 0:
+        sleep(3)
+        print('click')
+        camera.capture('{}/image0.jpg'.format(filepath))
+        objs = analyze(camera,filepath)
+    return objs
+    camera.stop_preview()
 
-#DeepFace.stream("/home/pi/Desktop/video.h264")
+    #for i in range (1): #change to while loop that takes pictures until receives signal from google assistant
+    #    sleep(3)
+    #    camera.capture('{}/image{}.jpg'.format(filepath,i))
+    #camera.stop_preview()
+    #objs = analyze(camera,filepath)
+    #return objs
 
 #analyze 10 pictures and put emotions into dict, pick the most common emotion
-obj = DeepFace.analyze(img_path="/home/pi/Desktop/image0.jpg", actions = ['emotion'])
-#objs = DeepFace.analyze(["image1.jpg","image2.jpg"])
-print(obj["dominant_emotion"])
-#print(objs["dominant_emotion"])
+def analyze(camera,filepath):
+    try:
+        objs = DeepFace.analyze(["%s/image0.jpg"% filepath], actions = ['emotion'])
+        #objs = DeepFace.analyze(["%s/image0.jpg"% filepath,"%s/image1.jpg"% filepath,"%s/image2.jpg"% filepath], actions = ['emotion'])
+    except ValueError as e:
+        print('No face detected')
+        picture = 0
+        return picture
+    print('Face acquired')
+    return objs
+
+
+def main():
+    camera = PiCamera()
+    camera.rotation = 180 #change depending on camera orientation
+    filepath = "/home/pi/Desktop/Face Detection/Pictures"
+    playMusic = 0
+    while playMusic == 0: #take pictures until user asks to play music
+        objs = takePicture(camera,filepath)
+        #objs = analyze(camera,filepath)
+        playMusic = 1 #would be controlled by google assistant
+        #print(objs["instance_1"]["dominant_emotion"])
+        print(objs)
+main()
+
