@@ -58,12 +58,3 @@ def cameraMain():
     return most_freq_emotion
 
 
-#start_time = time.time()
-#emotions = main()
-
-#print("Runtime = %s seconds" % (time.time()-start_time)) #measure runtime for testing
-#print(emotions) #print dictionary
-#most_freq_emotion = (max(emotions, key=emotions.get)) #return most frequently occurring emotion
-#print(most_freq_emotion)
-
-
