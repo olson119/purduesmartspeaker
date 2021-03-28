@@ -17,10 +17,10 @@ def create_playlist(emotion):
                 header += 1
     return playlist
 
-if __name__ == "__main__":
-    emotion = input("Please enter emotion: ")
-    emotion = emotion.lower()
-    playlist = create_playlist(emotion)
-    print(len(playlist))
-    print(playlist)
+#if __name__ == "__main__":
+#    emotion = input("Please enter emotion: ")
+#    emotion = emotion.lower()
+#    playlist = create_playlist(emotion)
+#    print(len(playlist))
+#    print(playlist)
 

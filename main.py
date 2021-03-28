@@ -1,4 +1,5 @@
 from camera import *
+from generate_playlist import *
 import time
 
 
@@ -12,5 +13,13 @@ print(most_freq_emotion)
 
 
 
+### Music Playlist Code Block ###
+emotion = most_freq_emotion
+emotion = emotion.lower()
+playlist = create_playlist(emotion)
+print(len(playlist))
+print(playlist)
+
 
 ### Music Playback Code Block ###
+
