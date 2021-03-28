@@ -41,18 +41,21 @@ def cameraMain():
     camera.rotation = 180 #change depending on camera orientation
     camera.resolution = (64,64) #change resolution to increase quality vs decrease runtime
     filepath = "/home/pi/Desktop/Face Detection/Pictures"
-    #playMusic = 0
-    emotions = defaultdict(lambda:0) #emotion library
+
+    dom_emotionDict = defaultdict(lambda:0) #emotion library
     try:
         while True: #take pictures until user asks to play music
             objs = takePicture(camera,filepath)
-            #playMusic += 1 #would be controlled by google assistant
-            print(objs)
-            #print(objs["instance_1"]["dominant_emotion"])
-            emotions['{}'.format(objs["instance_1"]["dominant_emotion"])]+=1
+            emotionDict = objs["instance_1"]["emotion"]
+            playlists = ["happy", "sad", "angry", "neutral"]
+            emotionDict = dict(map(lambda k: (k, emotionDict[k]), filter(lambda j: j in playlists, emotionDict)))             
+            dom_emotion = max(emotionDict, key=emotionDict.get)
+            print("Detected emotion: {}".format(dom_emotion))
+            dom_emotionDict['{}'.format(dom_emotion)]+=1
     except KeyboardInterrupt:
         print("\nImage capturing stopped")
-    return emotions
+        most_freq_emotion = (max(dom_emotionDict, key=dom_emotionDict.get))
+    return most_freq_emotion
 
 
 #start_time = time.time()
