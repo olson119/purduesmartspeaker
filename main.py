@@ -10,7 +10,6 @@ print("Runtime = %s seconds" % (time.time()-start_time)) #measure runtime for te
 print("Playlist emotion: {}".format(emotion)) #print most frequent emotion
 
 
-
 ### Music Playlist Code Block ###
 emotion = emotion.lower()
 playlist = create_playlist(emotion)

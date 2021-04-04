@@ -39,22 +39,23 @@ def analyze(camera,filepath):
 def cameraMain():
     camera = PiCamera()
     camera.rotation = 180 #change depending on camera orientation
-    camera.resolution = (64,64) #change resolution to increase quality vs decrease runtime
+    camera.resolution = (256,256) #change resolution to increase quality vs decrease runtime
     filepath = "/home/pi/Desktop/Face Detection/Pictures"
 
     dom_emotionDict = defaultdict(lambda:0) #emotion library
     try:
         while True: #take pictures until user asks to play music
-            objs = takePicture(camera,filepath)
-            emotionDict = objs["instance_1"]["emotion"]
+            objs = takePicture(camera,filepath) #instructs camera to take picture
+            emotionDict = objs["instance_1"]["emotion"] #dictionary of emotion weights
+            print(emotionDict)
             playlists = ["happy", "sad", "angry", "neutral"]
-            emotionDict = dict(map(lambda k: (k, emotionDict[k]), filter(lambda j: j in playlists, emotionDict)))             
-            dom_emotion = max(emotionDict, key=emotionDict.get)
+            emotionDict = dict(map(lambda k: (k, emotionDict[k]), filter(lambda j: j in playlists, emotionDict))) #filter dictionary to only include emotions that have corresponding playlists        
+            dom_emotion = max(emotionDict, key=emotionDict.get) #get dominant emotion
             print("Detected emotion: {}".format(dom_emotion))
-            dom_emotionDict['{}'.format(dom_emotion)]+=1
+            dom_emotionDict['{}'.format(dom_emotion)]+=1 #keep track of all dominant emotions over a time period
     except KeyboardInterrupt:
         print("\nImage capturing stopped")
-        most_freq_emotion = (max(dom_emotionDict, key=dom_emotionDict.get))
+    most_freq_emotion = (max(dom_emotionDict, key=dom_emotionDict.get)) #return most frequently occuring dominant emotion
     return most_freq_emotion
 
 
