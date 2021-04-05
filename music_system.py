@@ -29,7 +29,7 @@ class MusicSystem:
         self.pointer += 1
         if (self.pointer > len(playlist)):
             self.pointer = 0
-        self.playlist()
+        self.play()
 
     def prev_song(self):
         self.pointer -= 1
