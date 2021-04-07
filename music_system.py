@@ -65,11 +65,11 @@ class MusicSystem:
 
 
 
-#if __name__ == "__main__":
-#    emotion = input("Please enter emotion: ")
-#    emotion = emotion.lower()
-#    playlist = create_playlist(emotion)
-#    system = MusicSystem(playlist)
-#    system.run()
+if __name__ == "__main__":
+    emotion = input("Please enter emotion: ")
+    emotion = emotion.lower()
+    playlist = create_playlist(emotion)
+    system = MusicSystem(playlist)
+    system.run()
 
 

@@ -21,6 +21,9 @@ def create_playlist(emotion):
 #    emotion = input("Please enter emotion: ")
 #    emotion = emotion.lower()
 #    playlist = create_playlist(emotion)
-#    print(len(playlist))
+#    with open('playlist.txt','w') as filehandle:
+#        for i in playlist:
+#            filehandle.write('%s\n' % i)
+#    print(type(playlist))
 #    print(playlist)
 
