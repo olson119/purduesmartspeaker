@@ -27,7 +27,7 @@ class MusicSystem:
 
     def next_song(self):
         self.pointer += 1
-        if (self.pointer > len(playlist)):
+        if (self.pointer > len(self.playlist)):
             self.pointer = 0
         self.play()
 
@@ -50,17 +50,17 @@ class MusicSystem:
 
             if keyboard.is_pressed('p'):
                 # Pausing the music
-                system.pause()
+                self.pause()
                 time.sleep(0.5)
             elif keyboard.is_pressed('r'):
                 # Resuming the music
-                system.unpause()
+                self.unpause()
                 time.sleep(0.5)
             elif keyboard.is_pressed('q'):
-                system.next_song()
+                self.next_song()
                 time.sleep(0.5)
             elif keyboard.is_pressed('e'):
-                system.prev_song()
+                self.prev_song()
                 time.sleep(0.5)
 
 
