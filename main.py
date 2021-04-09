@@ -20,5 +20,8 @@ with open('playlist.txt','w') as filehandle:
 
 ### Music Playback Code Block ###
 from subprocess import call
-rc = call("./music_playback.sh")
+try:
+    rc = call("./music_playback.sh")
+except KeyboardInterrupt:
+    print('Music playback stopped')
 
